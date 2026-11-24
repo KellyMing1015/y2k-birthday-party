@@ -1,0 +1,238 @@
+.ticket-room {
+  --ticket-ink: #35122d;
+  --ticket-pink: #f6b9d4;
+  --ticket-rule: #ad597a;
+  display: grid;
+  position: relative;
+  isolation: isolate;
+  place-items: center;
+  min-height: 100svh;
+  padding: clamp(2rem, 8vh, 5rem) max(1.65rem, 6vw) clamp(3.1rem, 9vh, 6rem);
+  overflow: clip;
+  color: var(--ticket-ink);
+  background:
+    radial-gradient(ellipse at 50% 52%, #914c72 0, #612c50 30%, transparent 66%),
+    radial-gradient(ellipse at 16% 4%, #552443 0, transparent 48%),
+    linear-gradient(156deg, #271224, #170c19 74%, #35132d);
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  &::before {
+    inset: 0;
+    background: repeating-linear-gradient(125deg, transparent 0 46px, #fcb4d315 47px, transparent 48px 66px);
+    mask-image: radial-gradient(ellipse at center, transparent 6%, #000 75%);
+  }
+
+  &::after {
+    inset: auto -15% -23vh;
+    height: 48vh;
+    border: 1px solid #efa4cb4a;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at 50% 16%, #ed7dac27, transparent 58%);
+    box-shadow: 0 -1.2rem 3.5rem #f39cc820;
+  }
+}
+
+.admission-ticket {
+  position: relative;
+  width: min(35rem, 100%);
+  background: none;
+  transform: rotate(-4deg);
+  filter: drop-shadow(0 1.25rem 2rem #19081278);
+  animation: admission-ticket-arrive 560ms cubic-bezier(.18,.69,.19,1) both;
+}
+
+.admission-ticket-body,
+.admission-ticket-stub {
+  position: relative;
+  display: block;
+  width: 100%;
+  border: 1px solid #fff1f7;
+  overflow: hidden;
+  background-color: var(--ticket-pink);
+}
+
+.admission-ticket-body {
+  z-index: 1;
+  padding: clamp(1.45rem, 4.8vw, 2.55rem) clamp(1.25rem, 5.6vw, 3.35rem) clamp(1.65rem, 5vw, 3.25rem);
+  border-bottom: 0;
+  border-radius: .65rem .65rem 0 0;
+  box-shadow: inset 0 0 0 3px #f1a6c2, inset 0 0 0 4px #fff7fa;
+  background-image:
+    repeating-linear-gradient(0deg, #9b346808 0 1px, transparent 1px 3px),
+    linear-gradient(154deg, #fffafd, #ffe8f1 41%, #f4aecb 81%, #ffdce9);
+  mask-image: radial-gradient(circle .57rem at bottom left, transparent 98%, #000), radial-gradient(circle .57rem at bottom right, transparent 98%, #000);
+  mask-composite: intersect;
+
+  &::after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    inset: auto 0 -1px;
+    height: .35rem;
+    background: conic-gradient(from 135deg at 50% 0, transparent 0 90deg, #35122d 91deg 359deg, transparent 360deg) repeat-x left bottom / .6rem .35rem;
+    opacity: 0;
+    transition: opacity 90ms ease;
+    pointer-events: none;
+  }
+}
+
+.admission-ticket-kind {
+  position: relative;
+  z-index: 1;
+  display: table;
+  margin: 0 0 clamp(1.15rem, 3vw, 1.55rem);
+  padding: .32rem .7rem .4rem;
+  border: 1px solid var(--ticket-rule);
+  border-radius: 99px;
+  color: #642047;
+  font-size: .875rem;
+  font-weight: 750;
+  letter-spacing: .12em;
+}
+
+.admission-ticket-title {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-family: var(--sans, -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif);
+  font-size: clamp(2.25rem, 9.4vw, 4.7rem);
+  font-weight: 900;
+  letter-spacing: -.05em;
+  line-height: 1.02;
+
+  & span {
+    display: block;
+    width: fit-content;
+  }
+
+  & span:first-child {
+    margin-bottom: .52em;
+    font-size: .39em;
+    font-weight: 750;
+    letter-spacing: .08em;
+    line-height: 1.3;
+  }
+
+  & span:last-child {
+    margin-top: .055em;
+    color: #c41365;
+  }
+}
+
+@supports (background-clip: text) and (-webkit-text-stroke: 1px currentColor) {
+  .admission-ticket-title span:last-child {
+    padding: .035em .02em .07em 0;
+    color: transparent;
+    background: linear-gradient(174deg, #a20d52 11%, #d9307a 36%, #ffc8da 47%, #fff5fa 51%, #671744 53%, #b61961 70%, #c43670 93%);
+    background-clip: text;
+    -webkit-text-stroke: .013em #921451;
+  }
+}
+
+.admission-ticket-glint {
+  position: absolute;
+  z-index: 0;
+  top: 13%;
+  right: 8%;
+  width: clamp(4.2rem, 14vw, 8.85rem);
+  aspect-ratio: 1;
+  transform: rotate(19deg);
+  clip-path: polygon(50% 0, 58% 39%, 86% 14%, 68% 43%, 100% 50%, 69% 57%, 86% 86%, 57% 69%, 50% 100%, 42% 68%, 14% 86%, 32% 57%, 0 50%, 34% 43%, 14% 14%, 42% 35%);
+  background: linear-gradient(151deg, #8c5c7b 3%, #c89bba 22%, #fff1fa 40%, #fff 48%, #826085 50%, #c49cbd 60%, #fff1fa 76%, #a27697 96%);
+}
+
+.admission-ticket-stub {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .63rem;
+  min-height: clamp(4.15rem, 9vw, 5.35rem);
+  padding: .9rem 1.2rem;
+  border-top: 2px dashed #985374;
+  border-radius: 0 0 .65rem .65rem;
+  color: var(--ticket-ink);
+  background-image: linear-gradient(170deg, #ffd8e9 3%, #f7add0 53%, #f4a3c5 86%, #f9bed7);
+  mask-image: radial-gradient(circle .57rem at top left, transparent 98%, #000), radial-gradient(circle .57rem at top right, transparent 98%, #000);
+  mask-composite: intersect;
+  box-shadow: inset 0 -3px #ef9cbb;
+  font-family: inherit;
+  font-size: clamp(1rem, 2.4vw, 1.25rem);
+  font-weight: 800;
+  letter-spacing: .045em;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  transform: translateY(var(--ticket-pull, 0px)) rotate(var(--ticket-tilt, 0deg));
+  transform-origin: 10% top;
+  transition: transform 270ms cubic-bezier(.22,.83,.2,1), background-color 160ms ease;
+
+  &:hover {
+    background-image: linear-gradient(170deg, #ffe5f0 3%, #f9bdd6 53%, #f6afd0 86%, #fac9dd);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: inset 0 0 0 3px #82234e, inset 0 0 0 6px #ffef9b;
+  }
+
+  &.is-held {
+    cursor: grabbing;
+    transition: none;
+  }
+}
+
+.admission-ticket-grip {
+  position: relative;
+  width: .96rem;
+  height: .57rem;
+  border-block: 2px solid currentColor;
+  opacity: .8;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 50% 0 auto;
+    height: 2px;
+    transform: translateY(-50%);
+    background: currentColor;
+  }
+}
+
+.admission-ticket.is-torn {
+  & .admission-ticket-body::after { opacity: .86; }
+  & .admission-ticket-stub {
+    pointer-events: none;
+    animation: admission-stub-drop 590ms cubic-bezier(.55,.05,.76,.47) both;
+  }
+}
+
+@keyframes admission-ticket-arrive {
+  from { opacity: 0; transform: translateY(1.2rem) rotate(-6deg); }
+  to { opacity: 1; transform: translateY(0) rotate(-4deg); }
+}
+
+@keyframes admission-stub-drop {
+  from { opacity: 1; transform: translateY(var(--ticket-pull, 0px)) rotate(var(--ticket-tilt, 0deg)); }
+  to { opacity: 0; transform: translate(2.4rem, 9.2rem) rotate(16deg); }
+}
+
+@media (max-width: 520px) {
+  .admission-ticket-body { padding-right: 1.1rem; }
+  .admission-ticket-kind { margin-bottom: 1.1rem; }
+  .admission-ticket-glint { top: 15%; right: 9%; }
+  .admission-ticket-title { font-size: clamp(2.05rem, 11vw, 3.45rem); }
+  .admission-ticket-title span:first-child { font-size: max(.44em, .9rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admission-ticket { animation: none; }
+  .admission-ticket-stub { transform: none; transition: none; }
+  .admission-ticket.is-torn .admission-ticket-stub { visibility: hidden; animation: none; }
+}

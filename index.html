@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="给好朋友的一份生日礼物。">
+  <title>给她的生日</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="party.css?v=sealed-wish">
+  <link rel="stylesheet" href="party-ticket.css">
+  <link rel="stylesheet" href="party-balloons.css">
+  <link rel="stylesheet" href="party-jukebox.css?v=listening-room">
+  <link rel="stylesheet" href="radio.css">
+  <link rel="stylesheet" href="archive.css">
+  <link rel="stylesheet" href="tide.css">
+  <link rel="stylesheet" href="scratch.css?v=compact-wishes-2">
+  <script defer src="content.js?v=anthony-wish"></script>
+  <script defer src="party-ticket.js"></script>
+  <script defer src="party-balloons.js"></script>
+  <script defer src="party-jukebox.js?v=rumble-clean"></script>
+  <script defer src="party-finale.js?v=sealed-wish"></script>
+  <script defer src="party.js?v=birthday-soundtrack"></script>
+  <script defer src="radio.js"></script>
+  <script defer src="archive.js"></script>
+  <script defer src="tide.js"></script>
+  <script defer src="scratch.js?v=iphone-wishes"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="studio">
+    <a class="studio-title" href="?theme=party" aria-label="回到生日派对"><span aria-hidden="true">✳</span> 生日企划</a>
+    <nav class="studio-switch" aria-label="切换生日风格">
+      <a href="?theme=party" data-theme-link="party">粉色派对</a>
+      <a href="?theme=radio" data-theme-link="radio">深夜电台</a>
+      <a href="?theme=archive" data-theme-link="archive">标本室</a>
+      <a href="?theme=tide" data-theme-link="tide">潮汐来信</a>
+    </nav>
+    <button type="button" class="studio-reset" data-reset hidden>重来一次</button>
+  </header>
+  <main id="experience"></main>
+  <div id="ritual-status" class="visually-hidden" role="status"></div>
+  <dialog class="memory-dialog" aria-labelledby="photo-title">
+    <div class="memory-dialog-inner">
+      <button type="button" class="photo-close" data-dialog-close aria-label="关闭照片">×</button>
+      <div class="dialog-image" data-dialog-image></div>
+      <h2 id="photo-title"></h2>
+      <p data-dialog-caption></p>
+      <div class="dialog-navigation">
+        <button type="button" data-photo-shift="-1" aria-label="上一张照片">上一张</button>
+        <span data-dialog-count></span>
+        <button type="button" data-photo-shift="1" aria-label="下一张照片">下一张</button>
+      </div>
+    </div>
+  </dialog>
+  <noscript>请在浏览器中启用 JavaScript 来体验生日网站。</noscript>
+</body>
+</html>

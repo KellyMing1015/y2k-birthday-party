@@ -1,0 +1,11 @@
+.DS_Store
+/.env
+/.env.*
+!/.env.example
+*.key
+/content.js
+/assets/party-photos/
+/assets/party-voices/
+/assets/party-soundtrack.mp3
+/data/
+/review/

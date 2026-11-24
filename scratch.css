@@ -1,0 +1,139 @@
+.scratch-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .35rem .75rem;
+  margin: 0 0 1.05rem;
+}
+
+.scratch-header p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.scratch-progress {
+  font-size: .875rem;
+  font-weight: 720;
+  font-variant-numeric: tabular-nums;
+}
+
+.scratch-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.scratch-card {
+  --scratch-ink: var(--party-ink, #310e24);
+  color: var(--scratch-ink);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  min-width: 0;
+  padding: clamp(.45rem, 1vw, .72rem);
+  background: #fff2f8;
+  border: 1px solid var(--scratch-ink);
+  box-shadow: .19rem .2rem 0 var(--scratch-ink);
+  border-radius: .6rem;
+}
+
+.scratch-card:nth-child(2n) { background: #f8e1ee; }
+.scratch-card:nth-child(3n) { background: #f0e3f3; }
+
+.scratch-card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 1;
+  margin-bottom: .45rem;
+  font-family: var(--mono, monospace);
+  font-weight: 750;
+  font-size: .79rem;
+  padding-inline: .15rem;
+}
+
+.scratch-face {
+  display: grid;
+  position: relative;
+  isolation: isolate;
+  place-items: stretch;
+  min-inline-size: 0;
+  min-block-size: 6.4rem;
+  inline-size: 100%;
+  border: 1px solid var(--scratch-ink);
+  border-radius: .28rem;
+  background: #fff5fb;
+  background-image: linear-gradient(139deg, #fff8fc, #f5e0ea);
+}
+
+.scratch-wish {
+  display: grid;
+  align-content: center;
+  min-inline-size: 0;
+  gap: .37rem;
+  margin: 0;
+  padding: clamp(.48rem, 1.34vw, .88rem);
+  color: var(--scratch-ink);
+  border-radius: inherit;
+  overflow-wrap: anywhere;
+  user-select: none;
+}
+
+.scratch-wish-text {
+  margin: 0;
+  font-size: clamp(.95rem, 1.4vw, 1.08rem);
+  font-weight: 640;
+  line-height: 1.4;
+  text-wrap: balance;
+}
+
+.scratch-signature {
+  justify-self: end;
+  color: #71405d;
+  font-size: .81rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.scratch-wish:focus-visible { outline: 2px dashed currentColor; outline-offset: -5px; }
+
+.scratch-foil {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: opacity .32s ease, translate .32s ease;
+}
+
+.scratch-foil:active { cursor: grabbing; }
+
+.scratch-card.is-uncovered .scratch-foil {
+  opacity: 0;
+  translate: 0 -.25rem;
+  pointer-events: none;
+}
+
+/* The canvas owns touch and mouse input. The same card can receive keyboard focus. */
+.scratch-keyboard {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  color: var(--scratch-ink);
+  pointer-events: none;
+}
+.scratch-keyboard:focus-visible { outline: 3px solid #8d1558; outline-offset: 3px; }
+.scratch-face-fallback .scratch-keyboard {
+  pointer-events: auto;
+  font-weight: 750;
+  background: linear-gradient(140deg, #ab82ac, #fff7fd 30%, #cfaccf 60%, #faf2f9 80%, #b299b7);
+}
