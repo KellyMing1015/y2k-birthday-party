@@ -142,10 +142,14 @@
     let cleanUp;
     let entranceTimer;
     let confettiTimer;
+    let musicWanted = false;
 
     function activateAudio() {
       if (!AudioEngine) return;
-      audio ||= new AudioEngine();
+      if (!audio) {
+        audio = new AudioEngine();
+        audio.addEventListener("statechange", updateMusicControl);
+      }
       if (audio.state !== "running") audio.resume().catch(() => {});
       return audio;
     }
@@ -178,11 +182,16 @@
       updateMusicLevel();
     }
 
+    function isMusicPlaying() {
+      return !music.paused && (!musicGain || audio.state === "running");
+    }
+
     function updateMusicControl() {
-      musicControl.setAttribute("aria-pressed", String(!music.paused));
+      musicControl.setAttribute("aria-pressed", String(isMusicPlaying()));
     }
 
     function startMusic() {
+      musicWanted = true;
       try {
         const context = activateAudio();
         if (context && !musicGain) {
@@ -195,13 +204,27 @@
       } catch {
         // The media element can still play if the audio graph is unavailable.
       }
-      music.play().catch(updateMusicControl);
+      music.play().then(updateMusicControl, updateMusicControl);
+    }
+
+    function pauseMusic() {
+      musicWanted = false;
+      music.pause();
+    }
+
+    function retryMusicOnGesture(event) {
+      // iOS can reject audio after a drag. Use the next ordinary tap to retry.
+      if (event.isTrusted && musicWanted && !isMusicPlaying() && !musicControl.contains(event.target)) {
+        startMusic();
+      }
     }
 
     for (const eventName of ["play", "pause", "error"]) music.addEventListener(eventName, updateMusicControl);
+    experience.addEventListener("touchend", retryMusicOnGesture, { passive: true });
+    experience.addEventListener("click", retryMusicOnGesture, { capture: true });
     musicControl.addEventListener("click", () => {
-      if (music.paused) startMusic();
-      else music.pause();
+      if (musicWanted && isMusicPlaying()) pauseMusic();
+      else startMusic();
     });
 
     function edgeBurst() {
@@ -230,7 +253,7 @@
     }
 
     function replay() {
-      music.pause();
+      pauseMusic();
       music.currentTime = 0;
       quieter.clear();
       updateMusicLevel();
